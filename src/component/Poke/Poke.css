@@ -1,0 +1,13 @@
+.Poke {
+  width: 100%;
+  margin: auto;
+  height: 250px;
+  overflow: hidden;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.PokeIngredients {
+  overflow-y: scroll;
+}

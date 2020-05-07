@@ -1,0 +1,110 @@
+.Toolbar {
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 124, 74);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
+}
+
+.Toolbar nav {
+  height: 100%;
+}
+
+.Toolbar div {
+  color: white;
+}
+
+.NavItems {
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.NavItems .NavItem {
+  margin: 10px 0;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+.NavItems .NavItem a {
+  color: black;
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  padding: 16px 10px;
+  box-sizing: border-box;
+  display: block;
+  align-items: center;
+}
+
+.NavItems .NavItem a:hover,
+.NavItems .NavItem a:active,
+.NavItems .NavItem a.active{
+  cursor: pointer;
+  color: black;
+  background-color: rgba(1, 243, 243, 0.335);
+}
+
+@media (min-width: 500px){
+  .NavItems {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .NavItems .NavItem {
+    margin: 0 10px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+  
+  .NavItems .NavItem a {
+    color: white;
+    text-decoration: none;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+    box-sizing: border-box;
+    display: block;
+    align-items: center;
+  }
+  
+  .NavItems .NavItem a:hover,
+  .NavItems .NavItem a:active,
+  .NavItems .NavItem a.active{
+    cursor: pointer;
+    color: black;
+    border-bottom: 4px solid rgb(0, 2, 129);
+    background-color: rgba(1, 243, 243, 0.335);
+  }
+}
+
+@media (max-width: 499px){
+  .DesktopOnly {
+    display: none;
+  }
+}
+
+@media (min-width: 500px){
+  .MobileOnly {
+    display: none;
+  }
+}
