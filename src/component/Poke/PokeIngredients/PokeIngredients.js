@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 
-class PokeIngredients extends Component {
-  render() {  
-    return <div>{this.props.value*100}g {this.props.label}</div>;
-  }
+const PokeIngredients = props => {
+  return <div>{props.value*100}g {props.label}</div>;
 }
 
 PokeIngredients.propTypes = {

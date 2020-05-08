@@ -1,42 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import css from './Poke.css'
 import PokeIngredients from './PokeIngredients/PokeIngredients'
 
 import {connect} from 'react-redux';
 
-class Poke extends Component {
+const Poke = props => {
+  const newIng = Object.keys(props.selecteding);  
+  let finalIngredients = null;
+  
+  finalIngredients = newIng.filter(a => props.selecteding[a] > 0)
+  .map((a, i) => 
+    <PokeIngredients 
+      className={css.PokeIngredients}
+      key={i.toString()} 
+      type={a}
+      value={props.selecteding[a]}
+      label={props.ingredients.find(obj => obj.type === a).label}/>
+  );
 
-  shouldComponentUpdate(nextProps){
-    if(nextProps.selecteding !== this.props.selecteding) return true;
-
-    return false;
+  if(finalIngredients.length <= 0){
+      finalIngredients = <p>Your bowl is empty :(</p>
   }
 
-  render(){
-    const newIng = Object.keys(this.props.selecteding);  
-    let finalIngredients = null;
-    
-    finalIngredients = newIng.filter(a => this.props.selecteding[a] > 0)
-      .map((a, i) => 
-        <PokeIngredients 
-          className={css.PokeIngredients}
-          key={i.toString()} 
-          type={a}
-          value={this.props.selecteding[a]}
-          label={this.props.ingredients.find(obj => obj.type === a).label}/>
-      );
-  
-    if(finalIngredients.length <= 0){
-        finalIngredients = <p>Your bowl is empty :(</p>
-    }
-  
-    return(
-      <div className={css.Poke}>
-        {finalIngredients}
-      </div>
-    )
-  }
+  return(
+    <div className={css.Poke}>
+      {finalIngredients}
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
@@ -47,4 +38,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Poke);
+export default React.memo(connect(mapStateToProps)(Poke), (prevProps, nextProps) => nextProps.selecteding === prevProps.selecteding);

@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/action'
 
-class AuthOut extends Component{
+const AuthOut = props => {
+  useEffect(() => {
+    props.logout()
+  }, [])
 
-  componentDidMount(){
-    this.props.logout();
-  }
-
-  render(){
-    return <Redirect to='/auth' />
-  }
+  return <Redirect to='/auth' />
 } 
 
 export default connect(null, actions)(AuthOut);

@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React , {useEffect, useState} from 'react';
 import css from './Recommending.css'
 import {connect} from 'react-redux'
 import * as actions from '../../store/actions/action'
@@ -16,35 +16,28 @@ const Element = ({item, ingredients}) => {
   )
 }
 
-class Recommending extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      recommending: []
-    }
-  }
+const Recommending = props => {
+  // const [recommending, setRecommending] = useState([]);
 
-  shouldComponentUpdate(nProps){
-    if(nProps.recommending !== this.props.recommending) return true;
+  // shouldComponentUpdate(nProps){
+  //   if(nProps.recommending !== props.recommending) return true;
 
-    return false;
-  }
+  //   return false;
+  // }
 
-  componentDidMount(){
-    this.props.dbGetRecommending()
-  }
+  useEffect(() => {
+    props.dbGetRecommending()
+  }, [])
 
-  render(){
-    return(
-      <div className={css.Recommending}>
-      {this.props.recommending.map((obj) => {
-        return(
-          <Element key={obj.id} item={obj.data} {...this.props}/>
-        )
-      })}
-      </div>
-    )
-  }
+  return(
+    <div className={css.Recommending}>
+    {props.recommending.map((obj) => {
+      return(
+        <Element key={obj.id} item={obj.data} {...props}/>
+      )
+    })}
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
@@ -54,4 +47,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, actions)(Recommending);
+export default React.memo(connect(mapStateToProps, actions)(Recommending), (prevProps, nextProps) => nextProps.recommending === prevProps.recommending);

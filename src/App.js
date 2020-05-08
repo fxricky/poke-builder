@@ -1,54 +1,53 @@
-import React, {Component} from 'react';
+import React, {useEffect, Suspense} from 'react';
 import Layout from './component/Layout/Layout'
 import PokeBuilder from './container/PokeBuilder/PokeBuilder'
 
 import {Route, Switch} from 'react-router-dom'
-import asyncComponent from './component/hoc/asyncComponent'
 
 import {connect} from 'react-redux'
 import * as actions from './store/actions/action'
 
-const lazyAuthout = asyncComponent(() => {
+const LazyAuthout = React.lazy(() => {
   return import('./container/Auth/AuthOut')
 })
 
-const lazyAuth = asyncComponent(() => {
+const LazyAuth = React.lazy(() => {
   return import('./container/Auth/Auth')
 })
 
-const lazyNutrition = asyncComponent(() => {
+const LazyNutrition = React.lazy(() => {
   return import('./container/Nutrition/Nutrition')
 })
 
-const lazyRecommending = asyncComponent(() => {
+const LazyRecommending = React.lazy(() => {
   return import('./container/Recommending/Recommending')
 })
 
-class App extends Component {
-  state = {
-    ingredients: []
+const App = props => {
+  useEffect(() => {
+    props.dbGetIngredients();
+    props.checkisLoggedin();
+  }, []);
+
+  const state = {
+    ingredients : []
   }
 
-  async componentDidMount(){
-    this.props.dbGetIngredients();
-    this.props.checkisLoggedin();
-  }
-
-  render(){
-    return (
-      <div>
-        <Layout>
-          <Switch>
-            <Route path='/' exact component={(props) => <PokeBuilder {...props} ingredients={this.state.ingredients}/>} />
-            <Route path='/nutrition' component={lazyNutrition} />
-            <Route path='/recommending' component={lazyRecommending} />
-            <Route path='/authout' component={lazyAuthout} />
-            <Route path='/auth' component={lazyAuth} />
-          </Switch>
-        </Layout>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Layout>
+        <Switch>
+          <Suspense fallback={<p>Loading</p>}>
+            <Route path='/' exact component={(props) => <PokeBuilder {...props} ingredients={state.ingredients}/>} />
+            <Route path='/nutrition' component={LazyNutrition} />
+            <Route path='/recommending' component={LazyRecommending} />
+            <Route path='/authout' component={LazyAuthout} />
+            <Route path='/auth' component={LazyAuth} />
+          </Suspense>
+        </Switch>
+      </Layout>
+    </div>
+  );
 }
 
 export default connect(null, actions)(App);

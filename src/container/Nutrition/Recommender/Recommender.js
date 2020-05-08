@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React , {useState} from 'react';
 import css from './Recommender.css';
 import * as firebase from 'firebase';
 import * as moment from 'moment/moment.js';
@@ -7,114 +7,107 @@ import Input from '../../../component/Layout/UI/Input/Input';
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/action'
 
-class Recommmender extends Component {
-  constructor(props){
-    super(props)
-    this.state ={
-      form:{
-        name: {
-          elementType: 'input',
-          elementConfig: {
-            type: 'text',
-            placeholder: 'Your name'
-          },
-          value: ''
-        },
-        email: {
-          elementType: 'input',
-          elementConfig: {
-            type: 'email',
-            placeholder: 'youremail@provider.com'
-          },
-          value: ''
-        },
-        youare: {
-          elementType: 'select',
-          elementConfig: {
-            options: [
-              {value: 'student', displayValue: 'Student'},
-              {value: 'ftwork', displayValue: 'Full timer'},
-              {value: 'notany', displayValue: 'Not any'},
-            ]
-          },
-          value: ''
-        }
+const Recommmender = props => {
+  const [form, setForm] = useState({
+    name: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Your name'
       },
-      sending: false
+      value: ''
+    },
+    email: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'email',
+        placeholder: 'youremail@provider.com'
+      },
+      value: ''
+    },
+    youare: {
+      elementType: 'select',
+      elementConfig: {
+        options: [
+          {value: 'student', displayValue: 'Student'},
+          {value: 'ftwork', displayValue: 'Full timer'},
+          {value: 'notany', displayValue: 'Not any'},
+        ]
+      },
+      value: ''
     }
-  }
+  });
 
-  recommendHandler = (event) => {
+  const [sending, setSending] = useState(false);
+
+  const recommendHandler = (event) => {
     event.preventDefault();
-    this.setState({sending: true})
+    // setState({sending: true})
+    setSending(true);
     let recommender = {};
 
-    for (let key in this.state.form){
+    for (let key in form){
       recommender = {
         ...recommender,
-        [key]: this.state.form[key].value
+        [key]: form[key].value
       }
     }
 
     var db = firebase.firestore();
     db.collection('poke').doc(moment().format('YYYYMMDDHHmmss')).set({
-      pokeContent: {...this.props.selecteding},
-      totalCalories: this.props.totalcalories,
+      pokeContent: {...props.selecteding},
+      totalCalories: props.totalcalories,
       recommender: recommender
     })
     .then(() => {
-      this.setState({sending: false});
-      this.props.resetSelectedIng();
-      alert('Saved Successfully.');
-      this.props.history.push('/');
+      // setState({sending: false});
+      setSending(false);
+      props.resetSelectedIng();
+      props.history.push('/');
     })
     .catch(err => {
-      alert(err)
-      this.setState({sending: false})
+      alert(err);
+      setSending(false);
     })
   }
 
-  inputChangedHandler = (event, id) => {
+  const inputChangedHandler = (event, id) => {
     const{value} = event.target
 
-    this.setState(prev => ({
-      form: {
-        ...prev.form,
-        [id] :{
-          ...prev.form[id],
-          value: value
-        }
+    setForm({
+      ...form,
+      [id] :{
+        ...form[id],
+        value: value
       }
-    }))
+    })
   }
 
-  render(){
     let formElementArray = [];
-    for (let key in this.state.form){
+    for (let key in form){
       formElementArray.push({
         id: key,
-        config: this.state.form[key]
+        config: form[key]
       })
     }
 
-    return(
-      <div className={css.Recommender}>
-        <h4>Let others know who recommend it!</h4>
-        <form>
-          {formElementArray.map(obj => (
-            <Input 
-              key={obj.id} 
-              elementType={obj.config.elementType} 
-              elementConfig={obj.config.elementConfig}
-              value={obj.config.value}
-              changed={(event) => this.inputChangedHandler(event, obj.id)}
-            />
-          ))}
-          <button disabled={this.state.sending} onClick={this.recommendHandler}>Recommend</button>
-        </form>
-      </div>
-    )
-  }
+  return(
+    <div className={css.Recommender}>
+      <h4>Let others know who recommend it!</h4>
+      <form>
+        {formElementArray.map(obj => (
+          <Input 
+            key={obj.id} 
+            elementType={obj.config.elementType} 
+            elementConfig={obj.config.elementConfig}
+            value={obj.config.value}
+            changed={(event) => inputChangedHandler(event, obj.id)}
+          />
+        ))}
+        <button disabled={sending} onClick={recommendHandler}>Recommend</button>
+      </form>
+    </div>
+  )
 }
 
 const mapStateToProps = state => {

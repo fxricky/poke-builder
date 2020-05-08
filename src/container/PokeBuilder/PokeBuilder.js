@@ -1,36 +1,31 @@
-import React , {PureComponent} from 'react';
+import React , {useState} from 'react';
 import Poke from '../../component/Poke/Poke';
 import PokeControls from '../../component/Poke/PokeControls/PokeControls';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/action'
 
-export class PokeBuilder extends PureComponent {
-  constructor(props){
-    super(props)
-    this.state ={
-      ingredients: props.ingredients,
-      selectedIng: {},
-      totalCalories: 0,
-      sending: true
-    }
+export const PokeBuilder = props => {
+  // const [ingredients, setIngredients] = useState([]);
+  // const [selectedIng, setSelectedIng] = useState({});
+  // const [totalCalories, setTotalCalories] = useState(0);
+  const [sending] = useState(false);
+
+  const addIngredientHandler = (type) => {
+    props.addSelectedIng(type);
   }
 
-  addIngredientHandler = (type) => {
-    this.props.addSelectedIng(type);
+  const minusIngredientHandler = (type) => {
+    props.remSelectedIng(type);
   }
 
-  minusIngredientHandler = (type) => {
-    this.props.remSelectedIng(type);
-  }
-
-  submitPokeToFirebase = () => {
-    if(!this.props.loggedin){
+  const submitPokeToFirebase = () => {
+    if(!props.loggedin){
       alert('Please login before you save your recommendation.');
       return;
     }
 
-    if(!Object.values(this.props.selecteding).every(obj => obj === 0) && Object.keys(this.props.selecteding).length > 0){
-      this.props.history.push({
+    if(!Object.values(props.selecteding).every(obj => obj === 0) && Object.keys(props.selecteding).length > 0){
+      props.history.push({
         pathname: 'nutrition'
       })
     }else{
@@ -38,22 +33,20 @@ export class PokeBuilder extends PureComponent {
     }
   }
 
-  render(){
-    return(
-      <>
-        <Poke ingredients={this.props.ingredients} selectedIng={this.props.selecteding}/>
-        {this.props.ingredients &&
-          <PokeControls 
-            ingredients={this.props.ingredients}
-            addIngredient={this.addIngredientHandler}
-            minusIngredient={this.minusIngredientHandler}
-            submitPoke = {this.submitPokeToFirebase}
-            sending = {this.state.sending}
-            totalCalories={this.props.totalcalories}/>
-        }
-      </>
-    )
-  }
+  return(
+    <>
+      <Poke ingredients={props.ingredients} selectedIng={props.selecteding}/>
+      {props.ingredients &&
+        <PokeControls 
+          ingredients={props.ingredients}
+          addIngredient={addIngredientHandler}
+          minusIngredient={minusIngredientHandler}
+          submitPoke = {submitPokeToFirebase}
+          sending = {sending}
+          totalCalories={props.totalcalories}/>
+      }
+    </>
+  )
 }
 
 const mapStateToProps = state => {
