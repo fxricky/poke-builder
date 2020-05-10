@@ -9,3 +9,5 @@ export const AUTH_START = 'authStart'
 export const AUTH_SUCCESS = 'authSuccess'
 export const AUTH_FAILED = 'authFailed'
 export const AUTH_OUT = 'authOut'
+
+export const LOADING = 'loading'

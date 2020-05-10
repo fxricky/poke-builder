@@ -75,6 +75,8 @@ export const dbGetRecommending = () => (dispatch, getState) => {
   // var db = firebase.firestore();
   var tmpList = [];
 
+  dispatch({type: type.LOADING, payload: true});
+
   db.collection('poke').get()
   .then(resp => {   
     resp.forEach(doc=> {

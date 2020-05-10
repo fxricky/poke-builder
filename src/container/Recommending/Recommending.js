@@ -18,15 +18,18 @@ const Element = ({item, ingredients}) => {
 }
 
 const Recommending = props => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     props.dbGetRecommending()
   }, [])
 
   var renderList = null;
-  if(loading){
-    renderList =  <CircularProgress />;
+  if(props.loading){
+    renderList =  
+    <div className={css.Circular}>
+      <CircularProgress/>
+    </div>;
   }else{
     renderList = props.recommending.map((obj) => {
       return(
@@ -45,7 +48,8 @@ const Recommending = props => {
 const mapStateToProps = state => {
   return{
     recommending: state.pokereducer.recommending,
-    ingredients: state.pokereducer.ingredients
+    ingredients: state.pokereducer.ingredients,
+    loading: state.pokereducer.loading
   }
 }
 

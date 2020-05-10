@@ -1,6 +1,8 @@
 import React, {useEffect, Suspense} from 'react';
-import Layout from './component/Layout/Layout'
-import PokeBuilder from './container/PokeBuilder/PokeBuilder'
+import Layout from './component/Layout/Layout';
+import PokeBuilder from './container/PokeBuilder/PokeBuilder';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import css from './App.css';
 
 import {Route, Switch} from 'react-router-dom'
 
@@ -33,20 +35,23 @@ const App = props => {
     ingredients : []
   }
 
+  const fallbackDiv = 
+  <div className={css.Circular}>
+    <CircularProgress/>
+  </div>
+
   return (
-    <div>
-      <Layout>
-        <Switch>
-          <Suspense fallback={<p>Loading</p>}>
-            <Route path='/' exact component={(props) => <PokeBuilder {...props} ingredients={state.ingredients}/>} />
-            <Route path='/nutrition' component={LazyNutrition} />
-            <Route path='/recommending' component={LazyRecommending} />
-            <Route path='/authout' component={LazyAuthout} />
-            <Route path='/auth' component={LazyAuth} />
-          </Suspense>
-        </Switch>
-      </Layout>
-    </div>
+    <Layout>
+      <Switch>
+        <Suspense fallback={fallbackDiv}>
+          <Route path='/' exact component={(props) => <PokeBuilder {...props} ingredients={state.ingredients}/>} />
+          <Route path='/nutrition' component={LazyNutrition} />
+          <Route path='/recommending' component={LazyRecommending} />
+          <Route path='/authout' component={LazyAuthout} />
+          <Route path='/auth' component={LazyAuth} />
+        </Suspense>
+      </Switch>
+    </Layout>
   );
 }
 

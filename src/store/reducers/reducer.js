@@ -4,7 +4,8 @@ const INIT_STATE = {
   ingredients: [],
   selecteding: {},
   totalcalories: 0,
-  recommending: []
+  recommending: [],
+  loading: false
 }
 
 const reducer = (state = INIT_STATE, action) => {
@@ -20,7 +21,9 @@ const reducer = (state = INIT_STATE, action) => {
     case actionTypes.RESET_SELECTEDING:
       return{...state, selecteding: {} , totalcalories: 0}
     case actionTypes.GET_RECOMMENDING:
-      return{...state, recommending: payload}
+      return{...state, recommending: payload, loading: false}
+    case actionTypes.LOADING:
+      return{...state, loading: payload}
     default:
       return state;
   }

@@ -16,6 +16,12 @@
   margin: 10px;
 }
 
+.Recommending .Circular {
+  padding: 0 50%;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (min-width: 600px){
   .Recommending .miniEl{
     width: 500px;

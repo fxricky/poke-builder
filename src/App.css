@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+.App .Circular{
+  padding: 0 50%;
+  align-items: center;
+  justify-content: center;
+}
