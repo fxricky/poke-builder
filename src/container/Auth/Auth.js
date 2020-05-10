@@ -109,8 +109,10 @@ const Auth = props => {
     }
 
     return(
-      <div className={css.Auth}>
-        {loginElement}
+      <div className={css.AuthCont}>
+        <div className={css.Auth}>
+          {loginElement}
+        </div>
       </div>
     )
 }

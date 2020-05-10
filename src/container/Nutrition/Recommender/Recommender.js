@@ -3,6 +3,8 @@ import css from './Recommender.css';
 import * as firebase from 'firebase';
 import * as moment from 'moment/moment.js';
 import Input from '../../../component/Layout/UI/Input/Input';
+import Button from '@material-ui/core/Button'
+import FormControl from '@material-ui/core/FormControl';
 
 import {connect} from 'react-redux';
 import * as actions from '../../../store/actions/action'
@@ -94,7 +96,7 @@ const Recommmender = props => {
   return(
     <div className={css.Recommender}>
       <h4>Let others know who recommend it!</h4>
-      <form>
+      <FormControl variant='outlined' className={css.Form}>
         {formElementArray.map(obj => (
           <Input 
             key={obj.id} 
@@ -104,8 +106,8 @@ const Recommmender = props => {
             changed={(event) => inputChangedHandler(event, obj.id)}
           />
         ))}
-        <button disabled={sending} onClick={recommendHandler}>Recommend</button>
-      </form>
+        <Button disabled={sending} onClick={recommendHandler}>Recommend</Button>
+      </FormControl>
     </div>
   )
 }

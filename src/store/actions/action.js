@@ -52,13 +52,16 @@ export const addSelectedIng = (data) => (dispatch, getState) => {
 
 export const remSelectedIng = (data) => (dispatch, getState) => {
   const {ingredients, selecteding, totalcalories} = getState().pokereducer;
+  var payload = {...selecteding};
 
-  let payload = {
-    selecteding: {
-      ...selecteding, 
-      [data]: selecteding[data] - 1
-      },
-      totalcalories: totalcalories - ingredients.find(obj => obj.type === data).calories
+  if(selecteding[data] > 0){
+    payload = {
+      selecteding: {
+        ...selecteding, 
+        [data]: selecteding[data] - 1
+        },
+        totalcalories: totalcalories - ingredients.find(obj => obj.type === data).calories
+    }
   }
 
   dispatch({type: type.REM_SELECTEDING, payload: payload})

@@ -10,7 +10,7 @@ export const NavItem = (props) => (
 
 export const NavItems = (props) => (
   <ul className={css.NavItems}>
-    <NavItem link='/'>Poke Builder</NavItem>
+    <NavItem link='/'>Builder</NavItem>
     <NavItem link='/recommending' >Recommending</NavItem>
     <NavItem link='/auth' >Login</NavItem>
   </ul>
@@ -24,7 +24,7 @@ const toolbar = (props) => {
       onClick={props.trigger}>
         <i className="fa fa-bars" aria-hidden="true"/>
     </div>
-    <div className={css.DesktopOnly}>MENU</div>
+    <div className={css.DesktopOnly}>POKE BUILDER</div>
     <nav className={css.DesktopOnly}>
       <NavItems/>
     </nav>

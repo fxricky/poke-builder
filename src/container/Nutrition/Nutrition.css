@@ -2,27 +2,26 @@
   margin: auto;
   width: 80%;
   text-align: center;
+  padding: 56px 0;
 }
 
 .Nutrition button,
 .Nutrition button :focus{
   font: inherit;
-  padding: 5px;
+  padding: 15px;
   margin: 0 5px;
   min-width: 80px;
   display: inline-block;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   outline-style: none;
 }
 
 .Danger {
-  background-color: red;
-  box-shadow: 0.5px 0.5px grey;
+  color: red;
 }
 
 .Success {
-  background-color: green;
-  box-shadow: 0.5px 0.5px grey;
+  color: green;
 }
 
 @media (min-width: 600px){

@@ -1,10 +1,11 @@
 .PokeControls{
-  width: 100%;
+  width: 60%;
+  min-width: 500px;
   background-color: #98FFD6;
   display: flex;
   flex-flow: column;
   align-items: center;
-  box-shadow: 0 2px 1px lightblue;
+  /* box-shadow: 0 2px 1px lightblue; */
   margin: auto;
   padding: 10px 0;
 }
@@ -19,37 +20,46 @@
 .PokeControl button{
   display: block;
   font: inherit;
-  padding: 5px;
+  /* padding: 5px; */
   margin: 0 5px;
-  width: 80px;
-  border: 1px solid blue;
-  border-radius: 10px;
+  /* width: 80px; */
+  /* border: 1px solid blue;
+  border-radius: 10px; */
 }
 
 .PokeControls .Submit{
   display: block;
   font: inherit;
-  padding: 10px;
+  padding: 20px;
   margin: 0 5px;
-  border: 1px solid blue;
-  border-radius: 10px;
-  color: white;
-  background-color: lightseagreen;
+  /* border: 1px solid blue; */
+  /* border-radius: 10px; */
+  /* color: white; */
+  /* background-color: lightseagreen; */
   margin-top: 20px;
   /* height: 50px; */
 }
 
+.PokeControls .Submit :hover{
+  color: rgb(0, 183, 255);
+}
+
 .PokeControl .Minus:hover{
-  cursor: pointer;
-  background-color: lightsalmon;
+  color: lightsalmon;
 }
 
 .PokeControl .Plus:hover{
-  cursor: pointer;
-  background-color: lightgreen;
+  color: lightgreen;
 }
 
 .PokeControl .ControlLabel{
   width: 200px;
   text-align: center;
+}
+
+@media (max-width: 500px){
+  .PokeControls{
+    min-width: 300px;
+    padding: 0 20px;
+  }
 }

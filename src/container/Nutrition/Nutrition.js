@@ -4,6 +4,7 @@ import Poke from '../../component/Poke/Poke';
 import {Route, Redirect} from 'react-router-dom';
 import Recommender from './Recommender/Recommender';
 import {connect} from 'react-redux';
+import Button from '@material-ui/core/Button'
 
 const Nutrition = props => {
   const nutritionCanceled = () => {
@@ -20,8 +21,8 @@ const Nutrition = props => {
       <>
         <Poke/>
         <div className={css.ButtonDiv}>
-          <button onClick={nutritionCanceled} className={css.Danger}>Cancel</button>
-          <button onClick={nutritionContinue} className={css.Success}>Continue</button>
+          <Button onClick={nutritionCanceled} className={css.Danger} color='secondary'>Cancel</Button>
+          <Button onClick={nutritionContinue} className={css.Success} color='primary'>Continue</Button>
         </div>
       </>
     )
@@ -29,7 +30,7 @@ const Nutrition = props => {
 
   return(
     <div className={css.Nutrition}>
-      <div>Your nutrition value:</div>
+      <div>Your selection:</div>
       <div >
         {summary}
         <Route path={`${props.match.path}/recommender`} 

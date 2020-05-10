@@ -1,7 +1,8 @@
 import React , {useEffect, useState} from 'react';
-import css from './Recommending.css'
-import {connect} from 'react-redux'
-import * as actions from '../../store/actions/action'
+import css from './Recommending.css';
+import {connect} from 'react-redux';
+import * as actions from '../../store/actions/action';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Element = ({item, ingredients}) => {
   const{pokeContent} = item
@@ -17,25 +18,26 @@ const Element = ({item, ingredients}) => {
 }
 
 const Recommending = props => {
-  // const [recommending, setRecommending] = useState([]);
-
-  // shouldComponentUpdate(nProps){
-  //   if(nProps.recommending !== props.recommending) return true;
-
-  //   return false;
-  // }
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     props.dbGetRecommending()
   }, [])
 
-  return(
-    <div className={css.Recommending}>
-    {props.recommending.map((obj) => {
+  var renderList = null;
+  if(loading){
+    renderList =  <CircularProgress />;
+  }else{
+    renderList = props.recommending.map((obj) => {
       return(
         <Element key={obj.id} item={obj.data} {...props}/>
       )
-    })}
+    })
+  }
+
+  return(
+    <div className={css.Recommending}>
+    {renderList}
     </div>
   )
 }

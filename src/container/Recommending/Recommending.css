@@ -1,3 +1,8 @@
+.Recommending{
+  padding-top: 56px;
+  /* box-sizing: border-box; */
+}
+
 .Recommending .miniEl{
   width: 80%;
   border: 1px solid #eeeeee;
