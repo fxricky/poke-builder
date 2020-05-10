@@ -1,6 +1,7 @@
 import React , {useState, useReducer} from 'react';
 import css from './Auth.css';
 import Input from '../../component/Layout/UI/Input/Input';
+import Button from '@material-ui/core/Button'
 
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/action'
@@ -78,7 +79,7 @@ const Auth = props => {
     let loginElement = (
       <div>
         <h3>You already logged in.</h3>
-        <div className={css.Logout} onClick={logoutHandler}>Log out</div>
+        <Button className={css.Logout} onClick={logoutHandler} color='secondary'>Log out</Button>
       </div>
     )
 
@@ -98,8 +99,8 @@ const Auth = props => {
           ))}
           {props.error && <div className={css.Error}>{props.error}</div>}
           {signup ?
-            <button disabled={sending} onClick={signUpHandler}>Sign Up</button> :
-            <button disabled={sending} onClick={loginHandler}>Login</button>}
+            <Button disabled={sending} onClick={signUpHandler}>Sign Up</Button> :
+            <Button disabled={sending} onClick={loginHandler}>Login</Button>}
         </form>
         {signup ?
           <div className={css.AuthSignUpTinyBar}>Already have an account? <div onClick={changeFormHandler}>Login</div> here.</div> :
